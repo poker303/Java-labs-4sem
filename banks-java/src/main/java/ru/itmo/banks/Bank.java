@@ -1,26 +1,39 @@
 package ru.itmo.banks;
 
-import ru.itmo.banks.Accounts.Account;
-import ru.itmo.banks.Accounts.CreditAccount;
-import ru.itmo.banks.Accounts.DebitAccount;
-import ru.itmo.banks.Accounts.DepositAccount;
-import ru.itmo.banks.Exceptions.BanksExceptions;
-import ru.itmo.banks.Transactions.ReplenishmentTransaction;
-import ru.itmo.banks.Transactions.Transaction;
-import ru.itmo.banks.Transactions.WithdrawalTransaction;
-import ru.itmo.banks.TransmittedParameters.AccountParameters;
-import ru.itmo.banks.TransmittedParameters.BankParameters;
+import ru.itmo.banks.account.Account;
+import ru.itmo.banks.account.CreditAccount;
+import ru.itmo.banks.account.DebitAccount;
+import ru.itmo.banks.account.DepositAccount;
+import ru.itmo.banks.exception.BanksExceptions;
+import ru.itmo.banks.transaction.ReplenishmentTransaction;
+import ru.itmo.banks.transaction.Transaction;
+import ru.itmo.banks.transaction.WithdrawalTransaction;
+import ru.itmo.banks.transmittedParameter.AccountParameters;
+import ru.itmo.banks.transmittedParameter.BankParameters;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class Bank {
 
     private final List<Client> observers;
+    private final List<Client> clients;
+    private final List<Account> creditAccounts;
+    private final List<Account> depositAccounts;
+    private final List<Account> debitAccounts;
+    private final List<Transaction> transactions;
+    private final String name;
+    private final AmountPercentPair table;
+    private final int debitPercent;
+    private final int debitCommission;
+    private final int creditPercent;
+    private final int creditCommission;
+    private final int depositCommission;
+    private final int creditLimit;
     private int accountNumbers = 1;
+    private int reliabilityAmount;
 
     public Bank(BankParameters parameters) {
         observers = new ArrayList<>();
@@ -43,21 +56,6 @@ public class Bank {
         debitAccounts = new ArrayList<>();
         transactions = new ArrayList<>();
     }
-
-    private final List<Client> clients;
-    private final List<Account> creditAccounts;
-    private final List<Account> depositAccounts;
-    private final List<Account> debitAccounts;
-    private final List<Transaction> transactions;
-    private final String name;
-    private final AmountPercentPair table;
-    private int reliabilityAmount;
-    private final int debitPercent;
-    private final int debitCommission;
-    private final int creditPercent;
-    private final int creditCommission;
-    private final int depositCommission;
-    private final int creditLimit;
 
     public int getReliabilityAmount() {
         return reliabilityAmount;
@@ -119,7 +117,7 @@ public class Bank {
         return creditLimit;
     }
 
-    public void addClients(ArrayList<Client> clients) {
+    public void addClients(List<Client> clients) {
         for (Client client : clients) {
             if (!this.clients.contains(client)) {
                 this.clients.add(client);
@@ -127,7 +125,7 @@ public class Bank {
         }
     }
 
-    public DebitAccount createDebitAccount(Client client, int initialAmount, LocalDate creationTime, int duration) throws BanksExceptions {
+    public DebitAccount createDebitAccount(Client client, int initialAmount, LocalDate creationTime, int duration) {
         boolean reliability = checkingAccount(client, initialAmount);
 
         var parameters = new AccountParameters(accountNumbers, initialAmount, debitCommission, true, creationTime, duration, reliability, reliabilityAmount);
@@ -139,7 +137,7 @@ public class Bank {
         return newDebitAccount;
     }
 
-    public CreditAccount createCreditAccount(Client client, int initialAmount, LocalDate creationTime, int duration) throws BanksExceptions {
+    public CreditAccount createCreditAccount(Client client, int initialAmount, LocalDate creationTime, int duration) {
         boolean reliability = checkingAccount(client, initialAmount);
 
         var parameters = new AccountParameters(accountNumbers, initialAmount, creditCommission, true, creationTime, duration, reliability, reliabilityAmount);
@@ -150,7 +148,7 @@ public class Bank {
         return newCreditAccount;
     }
 
-    public DepositAccount createDepositAccount(Client client, int initialAmount, LocalDate creationTime, int duration) throws BanksExceptions {
+    public DepositAccount createDepositAccount(Client client, int initialAmount, LocalDate creationTime, int duration) {
         boolean reliability = checkingAccount(client, initialAmount);
 
         var parameters = new AccountParameters(accountNumbers, initialAmount, debitCommission, false, creationTime, duration, reliability, reliabilityAmount);
@@ -161,7 +159,7 @@ public class Bank {
         return newDepositAccount;
     }
 
-    public void withdrawal(int withdrawalAmount, Account account, LocalDate operationDate) throws BanksExceptions {
+    public void withdrawal(int withdrawalAmount, Account account, LocalDate operationDate) {
         if (!account.isReliability()) {
             if (withdrawalAmount > account.getReliabilityAmount()) {
                 throw new BanksExceptions("To perform the operation, enter your passport number.");
@@ -179,13 +177,13 @@ public class Bank {
         transactions.add(newTransaction);
     }
 
-    public void replenishment(int replenishmentAmount, Account account, LocalDate operationDate) throws BanksExceptions {
+    public void replenishment(int replenishmentAmount, Account account, LocalDate operationDate) {
         account.replenishment(replenishmentAmount);
         var newTransaction = new ReplenishmentTransaction(transactions.size(), replenishmentAmount, account, account);
         transactions.add(newTransaction);
     }
 
-    public void cancellationOfTheTransaction(int number) throws BanksExceptions {
+    public void cancellationOfTheTransaction(int number) {
         for (Transaction transaction : transactions) {
             if (transaction.getNumber() == number) {
                 transaction.cancellationOfTheTransaction();
@@ -208,7 +206,7 @@ public class Bank {
     }
 
     public void clientAccountsUpdate(Client client, LocalDate operationDate) {
-        if (client.passportNumber != null && client.address != null) {
+        if (client.getPassportNumber() != null && client.getAddress() != null) {
             List<Account> tempAccounts = new ArrayList<>(client.getCreditAccounts());
             tempAccounts.addAll(client.getDebitAccounts());
             tempAccounts.addAll(client.getDepositAccounts());
@@ -224,7 +222,7 @@ public class Bank {
         }
     }
 
-    public void attachObserver(Client client) throws BanksExceptions {
+    public void attachObserver(Client client) {
         if (!client.getSubscriptionDesire()) throw new BanksExceptions("No subscription permission.");
         if (!observers.contains(client)) {
             observers.add(client);
@@ -268,13 +266,13 @@ public class Bank {
         reliabilityAmount = newReliabilityAmount;
     }
 
-    public boolean checkingAccount(Client client, int initialAmount) throws BanksExceptions {
-        if (initialAmount > client.money) {
+    public boolean checkingAccount(Client client, int initialAmount) {
+        if (initialAmount > client.getMoney()) {
             throw new BanksExceptions("You don't have that much money");
         }
 
-        client.money -= initialAmount;
+        client.setMoney(client.getMoney() - initialAmount);
 
-        return client.passportNumber != null && client.address != null;
+        return client.getPassportNumber() != null && client.getAddress() != null;
     }
 }

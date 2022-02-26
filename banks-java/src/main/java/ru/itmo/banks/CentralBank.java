@@ -1,10 +1,10 @@
 package ru.itmo.banks;
 
-import ru.itmo.banks.Accounts.Account;
-import ru.itmo.banks.Exceptions.BanksExceptions;
-import ru.itmo.banks.Transactions.Transaction;
-import ru.itmo.banks.Transactions.TransferBetweenAccounts;
-import ru.itmo.banks.TransmittedParameters.BankParameters;
+import ru.itmo.banks.account.Account;
+import ru.itmo.banks.exception.BanksExceptions;
+import ru.itmo.banks.transaction.Transaction;
+import ru.itmo.banks.transaction.TransferBetweenAccounts;
+import ru.itmo.banks.transmittedParameter.BankParameters;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,17 +12,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class CentralBank {
+    private final List<Bank> banks;
+    private final String country;
+    private final List<Transaction> transactions;
+    private final String name;
+
     public CentralBank(String name, String country) {
         this.name = name;
         this.country = country;
         banks = new ArrayList<>();
         transactions = new ArrayList<>();
     }
-
-    protected String name;
-    private final List<Bank> banks;
-    private final String country;
-    private final List<Transaction> transactions;
 
     public String getName() {
         return name;
@@ -46,7 +46,7 @@ public class CentralBank {
         return bank;
     }
 
-    public void transfer(int transferAmount, Account sender, Account recipient, Bank bank, LocalDate operationDate) throws BanksExceptions {
+    public void transfer(int transferAmount, Account sender, Account recipient, Bank bank, LocalDate operationDate) {
         if (transferAmount < 0) {
             throw new BanksExceptions("The amount specified is incorrect, please change it.");
         }
@@ -58,7 +58,7 @@ public class CentralBank {
         transactions.add(newTransaction);
     }
 
-    public void transfer(int transferAmount, Account sender, Account recipient, Bank bank1, Bank bank2, LocalDate operationDate) throws BanksExceptions {
+    public void transfer(int transferAmount, Account sender, Account recipient, Bank bank1, Bank bank2, LocalDate operationDate) {
         if (transferAmount < 0) {
             throw new BanksExceptions("The amount specified is incorrect, please change it.");
         }
@@ -69,7 +69,7 @@ public class CentralBank {
         transactions.add(newTransaction);
     }
 
-    public void сancellationOfTheTransaction(int number) throws BanksExceptions {
+    public void сancellationOfTheTransaction(int number) {
 
         for (Transaction transaction : transactions) {
             if (transaction.getNumber() == number) {

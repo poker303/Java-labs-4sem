@@ -1,9 +1,9 @@
 package ru.itmo.banks;
 
-import ru.itmo.banks.Accounts.Account;
-import ru.itmo.banks.Accounts.CreditAccount;
-import ru.itmo.banks.Accounts.DebitAccount;
-import ru.itmo.banks.Accounts.DepositAccount;
+import ru.itmo.banks.account.Account;
+import ru.itmo.banks.account.CreditAccount;
+import ru.itmo.banks.account.DebitAccount;
+import ru.itmo.banks.account.DepositAccount;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,15 @@ import java.util.List;
 
 public class Client {
     private final List<String> notifications;
+    private final List<Account> creditAccounts;
+    private final List<Account> depositAccounts;
+    private final List<Account> debitAccounts;
+    private final String name;
+    private final String surname;
+    private String address;
+    private String passportNumber;
+    private int money;
+    private boolean subscriptionDesire;
 
     public Client(String name, String surname, int money) {
         this.name = name;
@@ -24,16 +33,6 @@ public class Client {
         depositAccounts = new ArrayList<>();
         debitAccounts = new ArrayList<>();
     }
-
-    protected String address;
-    protected String passportNumber;
-    protected int money;
-    private final List<Account> creditAccounts;
-    private final List<Account> depositAccounts;
-    private final List<Account> debitAccounts;
-    private final String name;
-    private final String surname;
-    private boolean subscriptionDesire;
 
     public String getName() {
         return name;
@@ -95,10 +94,6 @@ public class Client {
         return subscriptionDesire;
     }
 
-    public void setSubscriptionDesire(boolean subscriptionDesire) {
-        this.subscriptionDesire = subscriptionDesire;
-    }
-
     public String addAddress(String address) {
         this.address = address;
         return this.address;
@@ -116,6 +111,10 @@ public class Client {
 
     public boolean getSubscriptionDesire() {
         return subscriptionDesire;
+    }
+
+    public void setSubscriptionDesire(boolean subscriptionDesire) {
+        this.subscriptionDesire = subscriptionDesire;
     }
 
     public void update(Account account) {

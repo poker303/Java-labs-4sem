@@ -1,16 +1,16 @@
 package ru.itmo.banks;
 
-import ru.itmo.banks.Accounts.Account;
+import ru.itmo.banks.account.Account;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 public class TimeRewinder {
+    private final String name;
+
     public TimeRewinder(String name) {
         this.name = name;
     }
-
-    private final String name;
 
     public String getName() {
         return name;
