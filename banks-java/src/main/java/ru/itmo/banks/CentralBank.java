@@ -4,7 +4,7 @@ import ru.itmo.banks.account.Account;
 import ru.itmo.banks.exception.BanksExceptions;
 import ru.itmo.banks.transaction.Transaction;
 import ru.itmo.banks.transaction.TransferBetweenAccounts;
-import ru.itmo.banks.transmittedParameter.BankParameters;
+import ru.itmo.banks.transmittedparameter.BankParameters;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

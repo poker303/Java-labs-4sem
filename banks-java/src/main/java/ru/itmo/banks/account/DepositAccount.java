@@ -2,7 +2,7 @@ package ru.itmo.banks.account;
 
 import ru.itmo.banks.AmountPercentPair;
 import ru.itmo.banks.exception.BanksExceptions;
-import ru.itmo.banks.transmittedParameter.AccountParameters;
+import ru.itmo.banks.transmittedparameter.AccountParameters;
 
 public class DepositAccount extends Account {
     public DepositAccount(AccountParameters parameters, AmountPercentPair table) {

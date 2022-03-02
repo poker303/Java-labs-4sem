@@ -5,7 +5,7 @@ import ru.itmo.banks.*;
 import ru.itmo.banks.account.CreditAccount;
 import ru.itmo.banks.account.DebitAccount;
 import ru.itmo.banks.account.DepositAccount;
-import ru.itmo.banks.transmittedParameter.BankParameters;
+import ru.itmo.banks.transmittedparameter.BankParameters;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package ru.itmo.banks;
 
-import ru.itmo.banks.consoleApp.ConsoleApp;
+import ru.itmo.banks.consoleapp.ConsoleApp;
 
 public class Program {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package ru.itmo.banks.account;
 
 import ru.itmo.banks.exception.BanksExceptions;
-import ru.itmo.banks.transmittedParameter.AccountParameters;
+import ru.itmo.banks.transmittedparameter.AccountParameters;
 
 public class DebitAccount extends Account {
     public DebitAccount(AccountParameters parameters, int percent) {

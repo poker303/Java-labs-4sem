@@ -8,8 +8,8 @@ import ru.itmo.banks.exception.BanksExceptions;
 import ru.itmo.banks.transaction.ReplenishmentTransaction;
 import ru.itmo.banks.transaction.Transaction;
 import ru.itmo.banks.transaction.WithdrawalTransaction;
-import ru.itmo.banks.transmittedParameter.AccountParameters;
-import ru.itmo.banks.transmittedParameter.BankParameters;
+import ru.itmo.banks.transmittedparameter.AccountParameters;
+import ru.itmo.banks.transmittedparameter.BankParameters;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
