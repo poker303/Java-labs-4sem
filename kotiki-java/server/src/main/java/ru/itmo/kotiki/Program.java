@@ -27,11 +27,11 @@ public class Program {
 
         catOwnerService.updateCatOwner(catOwner1);
 
-        var catOwner2 = new CatOwner("Vladimir", new Date(1000000000));
+        var catOwner2 = new CatOwner("Vladimir", Date.valueOf("2002-05-17"));
         catOwnerService.saveCatOwner(catOwner2);
 
-        Cat cat3 = new Cat("Barsik", new Date(40000000), Species.russian, Color.green);
-        Cat cat4 = new Cat("Kisa", new Date(50000000), Species.italian, Color.red);
+        Cat cat3 = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.russian, Color.green);
+        Cat cat4 = new Cat("Kisa", Date.valueOf("2011-08-19"), Species.italian, Color.red);
 
         catOwner2.addCat(cat3);
         catOwner2.addCat(cat4);
