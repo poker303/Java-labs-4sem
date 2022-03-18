@@ -1,4 +1,4 @@
-package ru.itmo.kotiki.DAO.interfaces;
+package ru.itmo.kotiki.dao.interfaces;
 
 import ru.itmo.kotiki.model.Cat;
 

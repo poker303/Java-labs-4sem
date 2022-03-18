@@ -1,7 +1,7 @@
 package ru.itmo.kotiki.service;
 
-import ru.itmo.kotiki.DAO.implementations.CatOwnerDaoImplement;
-import ru.itmo.kotiki.DAO.interfaces.CatOwnerDao;
+import ru.itmo.kotiki.dao.implementations.CatOwnerDaoImplement;
+import ru.itmo.kotiki.dao.interfaces.CatOwnerDao;
 import ru.itmo.kotiki.model.Cat;
 import ru.itmo.kotiki.model.CatOwner;
 

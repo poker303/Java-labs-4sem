@@ -1,58 +1,50 @@
-package ru.itmo.kotiki.DAO.implementations;
+package ru.itmo.kotiki.dao.implementations;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import ru.itmo.kotiki.DAO.interfaces.CatOwnerDao;
+import ru.itmo.kotiki.dao.interfaces.CatDao;
 import ru.itmo.kotiki.model.Cat;
-import ru.itmo.kotiki.model.CatOwner;
 import ru.itmo.kotiki.util.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
-public class CatOwnerDaoImplement implements CatOwnerDao {
+public class CatDaoImplement implements CatDao {
 
-    public CatOwner findById(int id) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        var catOwner = session.get(CatOwner.class, id);
-        session.close();
-        return catOwner;
-    }
-
-    public void save(CatOwner catOwner) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction bT = session.beginTransaction();
-        session.save(catOwner);
-        bT.commit();
-        session.close();
-    }
-
-    public void update(CatOwner catOwner) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction bT = session.beginTransaction();
-        session.update(catOwner);
-        bT.commit();
-        session.close();
-    }
-
-    public void delete(CatOwner catOwner) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction bT = session.beginTransaction();
-        session.delete(catOwner);
-        bT.commit();
-        session.close();
-    }
-
-    public Cat findCatById(int id) {
+    public Cat findById(int id) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         var cat = session.get(Cat.class, id);
         session.close();
         return cat;
     }
 
-    public List<CatOwner> findAllCatsOwners() {
+    public void save(Cat cat) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        List<CatOwner> owners = (List<CatOwner>) session.createQuery("From CatOwner").list();
+        Transaction bT = session.beginTransaction();
+        session.save(cat);
+        bT.commit();
         session.close();
-        return owners;
+    }
+
+    public void update(Cat cat) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction bT = session.beginTransaction();
+        session.update(cat);
+        bT.commit();
+        session.close();
+    }
+
+    public void delete(Cat cat) {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Transaction bT = session.beginTransaction();
+        session.delete(cat);
+        bT.commit();
+        session.close();
+    }
+
+    public List<Cat> findAllCats() {
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        List<Cat> cats = (List<Cat>) session.createQuery("From Cat").list();
+        session.close();
+        return cats;
     }
 }

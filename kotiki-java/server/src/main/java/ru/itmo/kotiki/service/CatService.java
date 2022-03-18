@@ -1,7 +1,7 @@
 package ru.itmo.kotiki.service;
 
-import ru.itmo.kotiki.DAO.implementations.CatDaoImplement;
-import ru.itmo.kotiki.DAO.interfaces.CatDao;
+import ru.itmo.kotiki.dao.implementations.CatDaoImplement;
+import ru.itmo.kotiki.dao.interfaces.CatDao;
 import ru.itmo.kotiki.model.Cat;
 
 import java.util.List;
