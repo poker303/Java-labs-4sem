@@ -23,3 +23,5 @@ misc.xml
 vcs.xml
 discord.xml
 */target/
+kotiki-java/ModuleDAL/target
+kotiki-java/server/target

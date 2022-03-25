@@ -34,7 +34,7 @@ public class DBTests {
     public void findByIdTest() {
 
         var catOwner = new CatOwner("Masha", new Date(2000000000));
-        Cat cat = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.russian, Color.green);
+        Cat cat = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.RUSSIAN, Color.GREEN);
         catOwner.addCat(cat);
 
         when(catOwnerService.findCatOwner(1)).thenReturn(catOwner);
@@ -49,7 +49,7 @@ public class DBTests {
     public void findCatByIdTest() {
 
         var catOwner = new CatOwner("Masha", new Date(2000000000));
-        Cat cat = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.russian, Color.green);
+        Cat cat = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.RUSSIAN, Color.GREEN);
         catOwner.addCat(cat);
 
         when(catOwnerService.findCatById(1)).thenReturn(cat);
@@ -62,8 +62,8 @@ public class DBTests {
     public void findAllTest() {
 
         var catOwner = new CatOwner("Masha", Date.valueOf("1990-07-19"));
-        Cat cat1 = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.russian, Color.green);
-        Cat cat2 = new Cat("Kisa", Date.valueOf("2011-08-19"), Species.italian, Color.red);
+        Cat cat1 = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.RUSSIAN, Color.GREEN);
+        Cat cat2 = new Cat("Kisa", Date.valueOf("2011-08-19"), Species.ITALIAN, Color.RED);
 
         catOwner.addCat(cat1);
         catOwner.addCat(cat2);

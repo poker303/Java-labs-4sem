@@ -19,8 +19,8 @@ public class Program {
         var catOwner1 = new CatOwner("Masha", new Date(2000000000));
         catOwnerService.saveCatOwner(catOwner1);
 
-        Cat cat1 = new Cat("Slava", new Date(1000000000), Species.egypt, Color.black);
-        Cat cat2 = new Cat("Ykraine", new Date(10000000), Species.russian, Color.blue);
+        Cat cat1 = new Cat("Slava", new Date(1000000000), Species.EGYPT, Color.BLACK);
+        Cat cat2 = new Cat("Ykraine", new Date(10000000), Species.RUSSIAN, Color.BLUE);
 
         catOwner1.addCat(cat1);
         catOwner1.addCat(cat2);
@@ -30,8 +30,8 @@ public class Program {
         var catOwner2 = new CatOwner("Vladimir", Date.valueOf("2002-05-17"));
         catOwnerService.saveCatOwner(catOwner2);
 
-        Cat cat3 = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.russian, Color.green);
-        Cat cat4 = new Cat("Kisa", Date.valueOf("2011-08-19"), Species.italian, Color.red);
+        Cat cat3 = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.RUSSIAN, Color.GREEN);
+        Cat cat4 = new Cat("Kisa", Date.valueOf("2011-08-19"), Species.ITALIAN, Color.RED);
 
         catOwner2.addCat(cat3);
         catOwner2.addCat(cat4);
@@ -39,7 +39,7 @@ public class Program {
         catOwnerService.updateCatOwner(catOwner2);
 
         catService.deleteCat(cat1);
-        Cat cat5 = new Cat("Leon", new Date(60000000), Species.slava, Color.yellow);
+        Cat cat5 = new Cat("Leon", new Date(60000000), Species.SLAVA, Color.YELLOW);
         catService.saveCat(cat5);
     }
 }
