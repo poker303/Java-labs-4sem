@@ -1,17 +1,20 @@
 package ru.itmo.kotiki.service;
 
-import ru.itmo.kotiki.dao.implementations.CatDaoImplement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.itmo.kotiki.dao.interfaces.CatDao;
 import ru.itmo.kotiki.model.Cat;
 
 import java.util.List;
 
+@Service
 public class CatService {
 
-    private final CatDao catDao = new CatDaoImplement();
+    @Autowired
+    private  CatDao catDao;
 
     public Cat findCat(int id) {
-        return catDao.findById(id);
+        return catDao.getById(id);
     }
 
     public void saveCat(Cat cat) {
@@ -23,11 +26,11 @@ public class CatService {
     }
 
     public void updateCat(Cat cat) {
-        catDao.update(cat);
+        catDao.save(cat);
     }
 
     public List<Cat> findAllCats() {
-        return catDao.findAllCats();
+        return catDao.findAll();
     }
 
 }

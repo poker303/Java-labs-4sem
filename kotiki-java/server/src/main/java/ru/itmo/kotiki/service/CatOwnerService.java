@@ -1,18 +1,20 @@
 package ru.itmo.kotiki.service;
 
-import ru.itmo.kotiki.dao.implementations.CatOwnerDaoImplement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.itmo.kotiki.dao.interfaces.CatOwnerDao;
-import ru.itmo.kotiki.model.Cat;
 import ru.itmo.kotiki.model.CatOwner;
 
 import java.util.List;
 
+@Service
 public class CatOwnerService {
 
-    private final CatOwnerDao catOwnerDao = new CatOwnerDaoImplement();
+    @Autowired
+    private CatOwnerDao catOwnerDao;
 
     public CatOwner findCatOwner(int id) {
-        return catOwnerDao.findById(id);
+        return catOwnerDao.getById(id);
     }
 
     public void saveCatOwner(CatOwner catOwner) {
@@ -24,15 +26,11 @@ public class CatOwnerService {
     }
 
     public void updateCatOwner(CatOwner catOwner) {
-        catOwnerDao.update(catOwner);
-    }
-
-    public Cat findCatById(int id) {
-        return catOwnerDao.findCatById(id);
+        catOwnerDao.save(catOwner);
     }
 
     public List<CatOwner> findAllOwners() {
-        return catOwnerDao.findAllCatsOwners();
+        return catOwnerDao.findAll();
     }
 
 }
