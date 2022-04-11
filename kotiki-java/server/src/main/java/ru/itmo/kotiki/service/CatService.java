@@ -2,16 +2,17 @@ package ru.itmo.kotiki.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itmo.kotiki.dao.interfaces.CatDao;
+import ru.itmo.kotiki.dao.CatDao;
+import ru.itmo.kotiki.interfaces.CatInterface;
 import ru.itmo.kotiki.model.Cat;
 
 import java.util.List;
 
 @Service
-public class CatService {
+public class CatService implements CatInterface {
 
     @Autowired
-    private  CatDao catDao;
+    private CatDao catDao;
 
     public Cat findCat(int id) {
         return catDao.getById(id);

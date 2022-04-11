@@ -1,18 +1,32 @@
 package ru.itmo.kotiki;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.itmo.kotiki.DTO.CatDto;
+import ru.itmo.kotiki.DTO.CatOwnerDto;
 import ru.itmo.kotiki.model.Cat;
 import ru.itmo.kotiki.model.CatOwner;
-import ru.itmo.kotiki.webModel.CatOwnerWeb;
-import ru.itmo.kotiki.webModel.CatWeb;
 
+@Component
 public class Converter {
-    public Converter(){}
 
-    public Cat convertCat(CatWeb catWeb){
-        return new Cat(catWeb.getName(), catWeb.getBirthDate(), catWeb.getSpecies(), catWeb.getColor());
+    @Autowired
+    public Converter() {
     }
 
-    public CatOwner convertCatOwner(CatOwnerWeb catOwnerWeb){
-        return new CatOwner(catOwnerWeb.getName(), catOwnerWeb.getBirthDate());
+    public Cat convertToCat(CatDto catDto) {
+        return new Cat(catDto.getName(), catDto.getBirthDate(), catDto.getSpecies(), catDto.getColor());
+    }
+
+    public CatOwner convertToCatOwner(CatOwnerDto catOwnerDto) {
+        return new CatOwner(catOwnerDto.getName(), catOwnerDto.getBirthDate());
+    }
+
+    public CatDto convertToDtoCat(Cat cat) {
+        return new CatDto(cat.getName(), cat.getBirthDate(), cat.getSpecies(), cat.getColor());
+    }
+
+    public CatOwnerDto convertToDtoCatOwner(CatOwner catOwner) {
+        return new CatOwnerDto(catOwner.getName(), catOwner.getBirthDate());
     }
 }

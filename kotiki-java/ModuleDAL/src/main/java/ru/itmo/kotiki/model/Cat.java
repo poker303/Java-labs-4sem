@@ -2,8 +2,6 @@ package ru.itmo.kotiki.model;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "cats")
@@ -22,8 +20,6 @@ public class Cat {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private CatOwner owner;
-    @OneToMany(targetEntity = Cat.class)
-    private List<Cat> catFriends;
 
     public Cat() {
     }
@@ -33,7 +29,6 @@ public class Cat {
         this.birthDate = birthDate;
         this.species = species;
         this.color = color;
-        catFriends = new ArrayList<>();
     }
 
     public int getId() {
@@ -78,13 +73,5 @@ public class Cat {
 
     public void setOwner(CatOwner owner) {
         this.owner = owner;
-    }
-
-    public List<Cat> getCatFriends() {
-        return catFriends;
-    }
-
-    public void setCatFriends(List<Cat> catFriends) {
-        this.catFriends = catFriends;
     }
 }

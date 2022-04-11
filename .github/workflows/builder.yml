@@ -1,0 +1,20 @@
+name: kotiki
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: success build
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: success clean install
+        run: |
+          cd ./kotiki-java
+          mvn clean install

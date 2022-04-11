@@ -5,46 +5,51 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.kotiki.Converter;
+import ru.itmo.kotiki.DTO.CatOwnerDto;
 import ru.itmo.kotiki.model.CatOwner;
 import ru.itmo.kotiki.service.CatOwnerService;
-import ru.itmo.kotiki.webModel.CatOwnerWeb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/owners")
 public class CatOwnerController {
 
+    private final Converter converter = new Converter();
     @Autowired
     private CatOwnerService catOwnerService;
-    private final Converter converter = new Converter();
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CatOwner> getCatOwnerById(@PathVariable int id) {
-        return new ResponseEntity<>(catOwnerService.findCatOwner(id), HttpStatus.OK);
+    @GetMapping("/get/{id}")
+    public CatOwnerDto getCatOwnerById(@PathVariable int id) {
+        return converter.convertToDtoCatOwner(catOwnerService.findCatOwner(id));
     }
 
-    @PostMapping("/save/owner")
-    public ResponseEntity<?> saveCatOwner(@RequestBody CatOwnerWeb catOwnerWeb)
-    {
-        catOwnerService.saveCatOwner(converter.convertCatOwner(catOwnerWeb));
+    @GetMapping("/get/all")
+    public List<CatOwnerDto> getOwners() {
+        List<CatOwnerDto> ownersDto = new ArrayList<>();
+        for (CatOwner catOwner : catOwnerService.findAllOwners()) {
+            ownersDto.add(converter.convertToDtoCatOwner(catOwner));
+        }
+        return ownersDto;
+    }
+
+    @PostMapping("/addOwner")
+    public ResponseEntity<?> addOwner(@RequestBody CatOwnerDto catOwnerDto) {
+        CatOwner catOwner = converter.convertToCatOwner(catOwnerDto);
+        catOwnerService.saveCatOwner(catOwner);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/owner")
-    public ResponseEntity<?> deleteCatOwner(@RequestBody CatOwnerWeb catOwnerWeb) {
-        catOwnerService.deleteCatOwner(converter.convertCatOwner(catOwnerWeb));
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping("/update/{id}")
+    public void updateOwner(@PathVariable int id, String name) {
+        CatOwner catOwner = catOwnerService.findCatOwner(id);
+        catOwner.setName(name);
+        catOwnerService.saveCatOwner(catOwner);
     }
 
-    @PutMapping("/update/owner")
-    public ResponseEntity<?> updateCatOwner(@RequestBody CatOwnerWeb catOwnerWeb) {
-        catOwnerService.updateCatOwner(converter.convertCatOwner(catOwnerWeb));
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("all")
-    public ResponseEntity<List<CatOwner>> findAllOwners() {
-        return new ResponseEntity<>(catOwnerService.findAllOwners(), HttpStatus.OK);
+    @DeleteMapping("/delete/{id}")
+    public void deleteOwner(@PathVariable int id) {
+        catOwnerService.deleteCatOwner(catOwnerService.findCatOwner(id));
     }
 }
