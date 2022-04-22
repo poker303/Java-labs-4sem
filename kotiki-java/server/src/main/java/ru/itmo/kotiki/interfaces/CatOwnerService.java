@@ -4,7 +4,7 @@ import ru.itmo.kotiki.model.CatOwner;
 
 import java.util.List;
 
-public interface CatOwnerInterface {
+public interface CatOwnerService {
     CatOwner findCatOwner(int id);
 
     void saveCatOwner(CatOwner catOwner);

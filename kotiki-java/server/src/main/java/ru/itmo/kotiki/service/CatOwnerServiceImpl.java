@@ -3,13 +3,13 @@ package ru.itmo.kotiki.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itmo.kotiki.dao.CatOwnerDao;
-import ru.itmo.kotiki.interfaces.CatOwnerInterface;
+import ru.itmo.kotiki.interfaces.CatOwnerService;
 import ru.itmo.kotiki.model.CatOwner;
 
 import java.util.List;
 
 @Service
-public class CatOwnerService implements CatOwnerInterface {
+public class CatOwnerServiceImpl implements CatOwnerService {
 
     @Autowired
     private CatOwnerDao catOwnerDao;

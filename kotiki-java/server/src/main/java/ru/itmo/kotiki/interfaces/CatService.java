@@ -4,7 +4,7 @@ import ru.itmo.kotiki.model.Cat;
 
 import java.util.List;
 
-public interface CatInterface {
+public interface CatService {
     Cat findCat(int id);
 
     void saveCat(Cat cat);

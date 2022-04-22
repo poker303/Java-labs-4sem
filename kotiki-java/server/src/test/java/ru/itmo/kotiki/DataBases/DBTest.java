@@ -7,8 +7,8 @@ import ru.itmo.kotiki.model.Cat;
 import ru.itmo.kotiki.model.CatOwner;
 import ru.itmo.kotiki.model.Color;
 import ru.itmo.kotiki.model.Species;
-import ru.itmo.kotiki.service.CatOwnerService;
-import ru.itmo.kotiki.service.CatService;
+import ru.itmo.kotiki.service.CatOwnerServiceImpl;
+import ru.itmo.kotiki.service.CatServiceImpl;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -20,14 +20,14 @@ import static org.mockito.Mockito.when;
 
 public class DBTest {
     private Session session;
-    private CatOwnerService catOwnerService;
-    private CatService catService;
+    private CatOwnerServiceImpl catOwnerServiceImpl;
+    private CatServiceImpl catServiceImpl;
 
     @Before
     public void setup() {
         session = mock(Session.class);
-        catOwnerService = mock(CatOwnerService.class);
-        catService = mock(CatService.class);
+        catOwnerServiceImpl = mock(CatOwnerServiceImpl.class);
+        catServiceImpl = mock(CatServiceImpl.class);
     }
 
     @Test
@@ -37,11 +37,11 @@ public class DBTest {
         Cat cat = new Cat("Barsik", Date.valueOf("2010-10-02"), Species.RUSSIAN, Color.GREEN);
         catOwner.addCat(cat);
 
-        when(catOwnerService.findCatOwner(1)).thenReturn(catOwner);
-        when(catService.findCat(1)).thenReturn(cat);
+        when(catOwnerServiceImpl.findCatOwner(1)).thenReturn(catOwner);
+        when(catServiceImpl.findCat(1)).thenReturn(cat);
 
-        assertEquals("Masha", catOwnerService.findCatOwner(1).getName());
-        assertEquals("Barsik", catService.findCat(1).getName());
+        assertEquals("Masha", catOwnerServiceImpl.findCatOwner(1).getName());
+        assertEquals("Barsik", catServiceImpl.findCat(1).getName());
 
     }
 
@@ -55,13 +55,13 @@ public class DBTest {
         catOwner.addCat(cat1);
         catOwner.addCat(cat2);
 
-        when(catOwnerService.findCatOwner(1)).thenReturn(catOwner);
-        when(catService.findCat(1)).thenReturn(cat1);
-        when(catService.findCat(2)).thenReturn(cat2);
+        when(catOwnerServiceImpl.findCatOwner(1)).thenReturn(catOwner);
+        when(catServiceImpl.findCat(1)).thenReturn(cat1);
+        when(catServiceImpl.findCat(2)).thenReturn(cat2);
 
-        assertEquals("Masha", catOwnerService.findCatOwner(1).getName());
-        assertEquals("Barsik", catService.findCat(1).getName());
-        assertEquals("Kisa", catService.findCat(2).getName());
+        assertEquals("Masha", catOwnerServiceImpl.findCatOwner(1).getName());
+        assertEquals("Barsik", catServiceImpl.findCat(1).getName());
+        assertEquals("Kisa", catServiceImpl.findCat(2).getName());
 
         var testOwners = new ArrayList<CatOwner>();
         testOwners.add(catOwner);
@@ -70,8 +70,8 @@ public class DBTest {
         testCats.add(cat1);
         testCats.add(cat2);
 
-        when(catOwnerService.findAllOwners()).thenReturn(testOwners);
-        when(catService.findAllCats()).thenReturn(testCats);
+        when(catOwnerServiceImpl.findAllOwners()).thenReturn(testOwners);
+        when(catServiceImpl.findAllCats()).thenReturn(testCats);
 
         assertEquals(1, testOwners.size());
         assertEquals(2, testCats.size());
