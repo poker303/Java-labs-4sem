@@ -36,7 +36,7 @@ public class CatOwnerController {
         return ownersDto;
     }
 
-    @PostMapping("/addOwner")
+    @PostMapping("/add")
     public ResponseEntity<?> addOwner(@RequestBody CatOwnerDto catOwnerDto) {
         CatOwner catOwner = converter.convertToCatOwner(catOwnerDto);
         catOwnerService.saveCatOwner(catOwner);

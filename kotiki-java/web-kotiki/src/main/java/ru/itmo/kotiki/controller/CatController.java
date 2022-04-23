@@ -37,7 +37,7 @@ public class CatController {
         return catsDto;
     }
 
-    @PostMapping("/addCat")
+    @PostMapping("/add")
     public ResponseEntity<?> addCat(@RequestBody CatDto catDto) {
         Cat cat = converter.convertToCat(catDto);
         catService.saveCat(cat);
