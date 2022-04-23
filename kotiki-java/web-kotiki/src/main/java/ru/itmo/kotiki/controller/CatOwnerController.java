@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.kotiki.Converter;
 import ru.itmo.kotiki.DTO.CatOwnerDto;
+import ru.itmo.kotiki.interfaces.CatOwnerService;
 import ru.itmo.kotiki.model.CatOwner;
 import ru.itmo.kotiki.service.CatOwnerServiceImpl;
 
@@ -19,17 +20,17 @@ public class CatOwnerController {
     @Autowired
     private final Converter converter = new Converter();
     @Autowired
-    private CatOwnerServiceImpl catOwnerServiceImpl;
+    private CatOwnerService catOwnerService = new CatOwnerServiceImpl();
 
     @GetMapping("/{id}")
     public CatOwnerDto getCatOwnerById(@PathVariable int id) {
-        return converter.convertToDtoCatOwner(catOwnerServiceImpl.findCatOwner(id));
+        return converter.convertToDtoCatOwner(catOwnerService.findCatOwner(id));
     }
 
     @GetMapping("/all")
     public List<CatOwnerDto> getOwners() {
         List<CatOwnerDto> ownersDto = new ArrayList<>();
-        for (CatOwner catOwner : catOwnerServiceImpl.findAllOwners()) {
+        for (CatOwner catOwner : catOwnerService.findAllOwners()) {
             ownersDto.add(converter.convertToDtoCatOwner(catOwner));
         }
         return ownersDto;
@@ -38,19 +39,19 @@ public class CatOwnerController {
     @PostMapping("/addOwner")
     public ResponseEntity<?> addOwner(@RequestBody CatOwnerDto catOwnerDto) {
         CatOwner catOwner = converter.convertToCatOwner(catOwnerDto);
-        catOwnerServiceImpl.saveCatOwner(catOwner);
+        catOwnerService.saveCatOwner(catOwner);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public void updateOwner(@PathVariable int id, String name) {
-        CatOwner catOwner = catOwnerServiceImpl.findCatOwner(id);
+        CatOwner catOwner = catOwnerService.findCatOwner(id);
         catOwner.setName(name);
-        catOwnerServiceImpl.saveCatOwner(catOwner);
+        catOwnerService.saveCatOwner(catOwner);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteOwner(@PathVariable int id) {
-        catOwnerServiceImpl.deleteCatOwner(catOwnerServiceImpl.findCatOwner(id));
+        catOwnerService.deleteCatOwner(catOwnerService.findCatOwner(id));
     }
 }
