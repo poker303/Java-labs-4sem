@@ -12,6 +12,7 @@ public final class CatDto {
     private final Species species;
     private final Color color;
 
+
     public CatDto(String name, Date birthDate, Species species, Color color) {
         this.name = name;
         this.birthDate = birthDate;

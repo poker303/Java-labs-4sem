@@ -26,9 +26,6 @@ public class CatOwnerServiceImpl implements CatOwnerService {
         catOwnerDao.delete(catOwner);
     }
 
-    public void updateCatOwner(CatOwner catOwner) {
-        catOwnerDao.save(catOwner);
-    }
 
     public List<CatOwner> findAllOwners() {
         return catOwnerDao.findAll();

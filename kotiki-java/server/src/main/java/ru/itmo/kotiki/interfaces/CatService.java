@@ -11,7 +11,5 @@ public interface CatService {
 
     void deleteCat(Cat cat);
 
-    void updateCat(Cat cat);
-
     List<Cat> findAllCats();
 }

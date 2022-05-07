@@ -11,7 +11,5 @@ public interface CatOwnerService {
 
     void deleteCatOwner(CatOwner catOwner);
 
-    void updateCatOwner(CatOwner catOwner);
-
     List<CatOwner> findAllOwners();
 }
