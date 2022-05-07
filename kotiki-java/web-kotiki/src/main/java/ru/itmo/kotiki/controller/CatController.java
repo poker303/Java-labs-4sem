@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.kotiki.Converter;
 import ru.itmo.kotiki.DTO.CatDto;
+import ru.itmo.kotiki.interfaces.CatService;
 import ru.itmo.kotiki.model.Cat;
 import ru.itmo.kotiki.model.Color;
-import ru.itmo.kotiki.service.CatServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class CatController {
     @Autowired
     private final Converter converter = new Converter();
     @Autowired
-    private CatServiceImpl catService;
+    private CatService catService;
 
     @GetMapping("/get/{id}")
     public CatDto getCatById(@PathVariable int id) {

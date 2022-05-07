@@ -7,13 +7,11 @@ import java.sql.Date;
 
 
 public final class CatDto {
-    private String name;
-    private Date birthDate;
-    private Species species;
-    private Color color;
+    private final String name;
+    private final Date birthDate;
+    private final Species species;
+    private final Color color;
 
-    public CatDto() {
-    }
 
     public CatDto(String name, Date birthDate, Species species, Color color) {
         this.name = name;

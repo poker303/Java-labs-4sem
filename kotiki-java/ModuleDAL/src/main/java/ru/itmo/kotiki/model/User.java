@@ -14,16 +14,35 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private Role role;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private CatOwner owner;
 
-    public User(){
+    public User() {
     }
 
-    public User(String username, Role role){
+    public User(String username, Role role) {
         this.username = username;
         this.role = role;
     }
 
-    public int getId() { return id;}
-    public String getUsername() { return username;}
-    public Role getRole() { return role;}
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public CatOwner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(CatOwner owner) {
+        this.owner = owner;
+    }
 }
