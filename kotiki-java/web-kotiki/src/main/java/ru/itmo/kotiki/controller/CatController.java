@@ -23,7 +23,7 @@ public class CatController {
     @Autowired
     private CatService catService;
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public CatDto getCatById(@PathVariable int id) {
         Cat cat = catService.findCat(id);
         return converter.convertToDtoCat(cat);
